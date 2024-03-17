@@ -135,8 +135,24 @@ public class Application {
                 if (activeProperty == null) {
                     break;
                 }
+
                 System.out.print("Unit No : ");
                 int unitNo = scanner.nextInt();
+
+                // Check if the unitNo is unique within the property
+                boolean isUniqueUnitNo = true;
+                for (Unit unit : activeProperty.getUnits()) {
+                    if (unit.getUnitNo() == unitNo) {
+                        isUniqueUnitNo = false;
+                        break;
+                    }
+                }
+
+                if (!isUniqueUnitNo) {
+                    System.out.println("This Unit Number already exists in the Property!. Please make it Unique.");
+                    break;
+                }
+
                 System.out.print("Floor No : ");
                 int floorNo = scanner.nextInt();
                 System.out.print(" Unit Type: ");
