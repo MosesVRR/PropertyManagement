@@ -10,6 +10,23 @@ public class Application {
     List<Property> properties = new ArrayList<Property>();
     User activeUser;
 
+    public void initializeUsers() {
+        UserInitializer.initializeUsers(this.users, this.properties);
+//        Admin admin = new Admin("admin", "admin123", "Admin1");
+//        users.add(admin);
+//        Tenant tenant = new Tenant("tenant1", "tenant123", "Tenant1");
+//        users.add(tenant);
+//        Owner owner = new Owner("owner", "owner123", "Owner1");
+//        users.add(owner);
+//        Visitor visitor = new Visitor("visitor1", "visitor123", "Visitor1");
+//        users.add(visitor);
+//
+//        Property newProperty = owner.addProperty("Concordia", "Downtown");
+//        properties.add(newProperty);
+    }
+
+
+
     public void menu() {
         if (this.activeUser == null) {
             this.userMenu();
@@ -118,8 +135,24 @@ public class Application {
                 if (activeProperty == null) {
                     break;
                 }
+
                 System.out.print("Unit No : ");
                 int unitNo = scanner.nextInt();
+
+                // Check if the unitNo is unique within the property
+                boolean isUniqueUnitNo = true;
+                for (Unit unit : activeProperty.getUnits()) {
+                    if (unit.getUnitNo() == unitNo) {
+                        isUniqueUnitNo = false;
+                        break;
+                    }
+                }
+
+                if (!isUniqueUnitNo) {
+                    System.out.println("This Unit Number already exists in the Property!. Please make it Unique.");
+                    break;
+                }
+
                 System.out.print("Floor No : ");
                 int floorNo = scanner.nextInt();
                 System.out.print(" Unit Type: ");
@@ -227,11 +260,12 @@ public class Application {
         TenantAgreement tenantAgreement = tenant.getCurrentAgreement();
         switch (choice) {
             case 1:
-                System.out.println("| Id: " + tenantAgreement.getId() + " | " + tenantAgreement.getDuration() + " |");
+                System.out.println("| Id: " + tenantAgreement.getId() + " | " + tenantAgreement.getDuration() + " |" + tenantAgreement.getAmount());
                 break;
             case 2:
                 RentReceipt rentReceipt = new RentReceipt(tenant, tenantAgreement);
                 tenant.addRentReceipt(rentReceipt);
+                System.out.print("All Receipts Paid");
                 break;
             case 3:
                 for (RentReceipt receipt : tenant.getRentReceipts()) {
@@ -360,33 +394,49 @@ public class Application {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Username: ");
         String email = scanner.nextLine();
-        System.out.print("Password: ");
-        String password = scanner.nextLine();
-        System.out.print("Name: ");
-        String name = scanner.nextLine();
-        System.out.println("1. Admin 2. Tenant 3. Owner 4. Visitor");
-        System.out.println("Role: ");
-        int role = scanner.nextInt();
-        switch (role) {
-            case 1:
-                Admin newAdmin = new Admin(email, password, name);
-                users.add(newAdmin);
-                break;
-            case 2:
-                Tenant newTenant = new Tenant(email, password, name);
-                users.add(newTenant);
-                break;
-            case 3:
-                Owner newOwner = new Owner(email, password, name);
-                users.add(newOwner);
-                break;
-            case 4:
-                Visitor newVisitor = new Visitor(email, password, name);
-                users.add(newVisitor);
-                break;
-            case 5:
-                System.out.println("Invalid Role");
+
+        if (isUsernameUnique(email)) {
+            System.out.print("Password: ");
+            String password = scanner.nextLine();
+            System.out.print("Name: ");
+            String name = scanner.nextLine();
+            System.out.println("1. Admin 2. Tenant 3. Owner 4. Visitor");
+            System.out.println("Role: ");
+            int role = scanner.nextInt();
+            switch (role) {
+                case 1:
+                    Admin newAdmin = new Admin(email, password, name);
+                    users.add(newAdmin);
+                    break;
+                case 2:
+                    Tenant newTenant = new Tenant(email, password, name);
+                    users.add(newTenant);
+                    break;
+                case 3:
+                    Owner newOwner = new Owner(email, password, name);
+                    users.add(newOwner);
+                    break;
+                case 4:
+                    Visitor newVisitor = new Visitor(email, password, name);
+                    users.add(newVisitor);
+                    break;
+                case 5:
+                    System.out.println("Invalid Role");
+            }
+            System.out.println("User is registered");
         }
-        System.out.println("User is registered");
+        else {
+            System.out.println("Username '" + email + "' already exists. Please choose a different username.");
+        }
+        }
+
+    private boolean isUsernameUnique(String username) {
+        for (User user : users) {
+            if (user.getEmail().equals(username)) {
+                return false; // Username already exists
+            }
+        }
+        return true; // Username is unique
     }
+
 }

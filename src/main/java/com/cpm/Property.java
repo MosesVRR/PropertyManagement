@@ -84,4 +84,5 @@ public class Property {
     public void setOwnedBy(User ownedBy) {
         this.ownedBy = ownedBy;
     }
+
 }
