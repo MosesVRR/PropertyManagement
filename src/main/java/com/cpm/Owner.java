@@ -52,4 +52,6 @@ class Owner extends User {
     public void setTenantAgreements(List<TenantAgreement> tenantAgreements) {
         this.tenantAgreements = tenantAgreements;
     }
+
+
 }

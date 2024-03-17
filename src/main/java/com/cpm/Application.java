@@ -10,6 +10,23 @@ public class Application {
     List<Property> properties = new ArrayList<Property>();
     User activeUser;
 
+    public void initializeUsers() {
+        UserInitializer.initializeUsers(this.users, this.properties);
+//        Admin admin = new Admin("admin", "admin123", "Admin1");
+//        users.add(admin);
+//        Tenant tenant = new Tenant("tenant1", "tenant123", "Tenant1");
+//        users.add(tenant);
+//        Owner owner = new Owner("owner", "owner123", "Owner1");
+//        users.add(owner);
+//        Visitor visitor = new Visitor("visitor1", "visitor123", "Visitor1");
+//        users.add(visitor);
+//
+//        Property newProperty = owner.addProperty("Concordia", "Downtown");
+//        properties.add(newProperty);
+    }
+
+
+
     public void menu() {
         if (this.activeUser == null) {
             this.userMenu();
@@ -227,11 +244,12 @@ public class Application {
         TenantAgreement tenantAgreement = tenant.getCurrentAgreement();
         switch (choice) {
             case 1:
-                System.out.println("| Id: " + tenantAgreement.getId() + " | " + tenantAgreement.getDuration() + " |");
+                System.out.println("| Id: " + tenantAgreement.getId() + " | " + tenantAgreement.getDuration() + " |" + tenantAgreement.getAmount());
                 break;
             case 2:
                 RentReceipt rentReceipt = new RentReceipt(tenant, tenantAgreement);
                 tenant.addRentReceipt(rentReceipt);
+                System.out.print("All Receipts Paid");
                 break;
             case 3:
                 for (RentReceipt receipt : tenant.getRentReceipts()) {
