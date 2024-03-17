@@ -11,7 +11,7 @@ public class ExpenseTracker {
 
     // Getters and setters
     public int getExpenseId() {
-        return expenseId;
+        return this.expenseId;
     }
 
     public void setExpenseId(int expenseId) {
@@ -19,7 +19,7 @@ public class ExpenseTracker {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description) {
@@ -27,7 +27,7 @@ public class ExpenseTracker {
     }
 
     public int getAmount() {
-        return amount;
+        return this.amount;
     }
 
     public void setAmount(int amount) {
