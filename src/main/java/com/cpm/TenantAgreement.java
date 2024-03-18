@@ -1,6 +1,7 @@
 package com.cpm;
 
 import java.util.Date;
+import java.util.List;
 
 public class TenantAgreement {
     private static int idCounter = 0;
@@ -66,6 +67,20 @@ public class TenantAgreement {
 
     public void setSignedOn(Date signedOn) {
         this.signedOn = signedOn;
+    }
+
+    // Validation method for OCL 20
+    public boolean validateTransfer(List<TenantAgreement> tenantAgreements) {
+        for (TenantAgreement agreement : tenantAgreements) {
+            if (agreement.getDuration() > 0) {
+                boolean hasShorterAgreement = tenantAgreements.stream()
+                        .anyMatch(newAgreement -> newAgreement.getDuration() <= agreement.getDuration());
+                if (!hasShorterAgreement) {
+                    return false; // No new agreement with shorter or equal duration found
+                }
+            }
+        }
+        return true; // All agreements with remaining duration have a corresponding new agreement
     }
 
     // Method to validate the OCL 29 constraint
