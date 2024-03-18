@@ -12,17 +12,6 @@ public class Application {
 
     public void initializeUsers() {
         UserInitializer.initializeUsers(this.users, this.properties);
-//        Admin admin = new Admin("admin", "admin123", "Admin1");
-//        users.add(admin);
-//        Tenant tenant = new Tenant("tenant1", "tenant123", "Tenant1");
-//        users.add(tenant);
-//        Owner owner = new Owner("owner", "owner123", "Owner1");
-//        users.add(owner);
-//        Visitor visitor = new Visitor("visitor1", "visitor123", "Visitor1");
-//        users.add(visitor);
-//
-//        Property newProperty = owner.addProperty("Concordia", "Downtown");
-//        properties.add(newProperty);
     }
 
 
@@ -288,6 +277,7 @@ public class Application {
         System.out.println("2. Park my vehicle in property");
         System.out.println("3. Empty my vehicle");
         System.out.println("4. Get all Vehicle receipts");
+        System.out.println("5. Show information of vehicles I own");
         System.out.println("9. Logout");
         System.out.print("Command > ");
 
@@ -299,6 +289,12 @@ public class Application {
             case 1:
                 System.out.print("VehicleNo: ");
                 String vehicleNo = scanner.next();
+
+                if (vehicleNo.equals("1") || vehicleNo.equals("2") || vehicleNo.equals("3") || vehicleNo.equals("4")) {
+                    System.out.println("Vehicle number already exists!. Please choose a unique one.");
+                    break;
+                }
+
                 System.out.println("Type: 1. SUV 2. Sedan 3. Hatchback");
                 System.out.println("Type: ");
                 int vehicleTypeChoice = scanner.nextInt();
@@ -316,35 +312,40 @@ public class Application {
                 System.out.println("| Vehicle Added |");
                 break;
             case 2:
-                System.out.println("Select Property");
-                for (Property property : properties) {
-                    System.out.println("| ID: " + property.getId() + " | Name: " + property.getName() + " |");
-                }
-                int id = scanner.nextInt();
-                for (Property property : properties) {
-                    if (id == property.getId()) {
-                        visitorProperty = property;
-                    } else {
-                        System.out.println("| Invalid property id |");
-                    }
-                }
-                System.out.println("Parking Spots");
-                if (visitorProperty != null && visitorProperty.getParkingSpots() != null) {
-                    for (ParkingSpot parkingSpot : visitorProperty.getParkingSpots()) {
-                        System.out.println("| Id: " + parkingSpot.getId() + " | Status: " + parkingSpot.getStatus() + " | Price: " + parkingSpot.getPrice() + " | Size: " + parkingSpot.getSize() + " |");
-                    }
+                if (visitor.getVehicle() != null && visitor.getVehicle().getParkingSpot() != null) {
+                    System.out.println("You can only park one vehicle at a time.");
                 } else {
-                    System.out.println("| No parking spots available |");
-                }
-                System.out.print("Select parking spot: ");
-                int parkingSpotId = scanner.nextInt();
-                assert visitorProperty != null;
-                for (ParkingSpot parkingSpot : visitorProperty.getParkingSpots()) {
-                    if (parkingSpot.getId() == parkingSpotId) {
-                        parkingSpot.setVehicle(visitor.getVehicle());
-                        visitor.getVehicle().setParkingSpot(parkingSpot);
+                    System.out.println("Select Property");
+                    for (Property property : properties) {
+                        System.out.println("| ID: " + property.getId() + " | Name: " + property.getName() + " |");
+                    }
+                    int id = scanner.nextInt();
+                    for (Property property : properties) {
+                        if (id == property.getId()) {
+                            visitorProperty = property;
+                        } else {
+                            System.out.println("| Invalid property id |");
+                        }
+                    }
+                    System.out.println("Parking Spots");
+                    if (visitorProperty != null && visitorProperty.getParkingSpots() != null) {
+                        for (ParkingSpot parkingSpot : visitorProperty.getParkingSpots()) {
+                            System.out.println("| Id: " + parkingSpot.getId() + " | Status: " + parkingSpot.getStatus() + " | Price: " + parkingSpot.getPrice() + " | Size: " + parkingSpot.getSize() + " |");
+                        }
+                    } else {
+                        System.out.println("| No parking spots available |");
+                    }
+                    System.out.print("Select parking spot: ");
+                    int parkingSpotId = scanner.nextInt();
+                    assert visitorProperty != null;
+                    for (ParkingSpot parkingSpot : visitorProperty.getParkingSpots()) {
+                        if (parkingSpot.getId() == parkingSpotId) {
+                            parkingSpot.setVehicle(visitor.getVehicle());
+                            visitor.getVehicle().setParkingSpot(parkingSpot);
+                        }
                     }
                 }
+
                 break;
             case 3:
                 System.out.println("Empty your vehicle parking spot");
@@ -358,7 +359,8 @@ public class Application {
                     visitor.addParkingReceipt(receipt);
                 }
                 break;
-            case 4:
+
+            case 9:
                 activeUser = null;
                 break;
             default:
@@ -438,5 +440,7 @@ public class Application {
         }
         return true; // Username is unique
     }
+
+
 
 }

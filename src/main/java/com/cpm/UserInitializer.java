@@ -38,7 +38,10 @@ public class UserInitializer {
         Visitor visitor3 = new Visitor("visitor3", "visitor123", "Visitor3");
         users.add(visitor3);
         Vehicle vehicle3 = new Vehicle("3", "HATCHBACK");
-        visitor2.setVehicle(vehicle2);
+        Vehicle vehicle4 = new Vehicle("4", "HATCHBACK");
+        visitor3.setVehicle(vehicle3);
+        visitor3.setVehicle(vehicle4);
+
 
         Property newProperty = owner.addProperty("Concordia", "Downtown");
         properties.add(newProperty);
@@ -78,6 +81,9 @@ public class UserInitializer {
                 break;
             }
         }
+
+
+        //Creating Rent Agreement and assigning each tenant 1 unit
         owner.createAgreement(1000, 12, (Tenant) users.get(1), getUnitByUnitIdAndPropertyId(101, 2, 1, owner.getProperties(), users));
         owner.createAgreement(1250, 6, (Tenant) users.get(2), getUnitByUnitIdAndPropertyId(102, 3, 1, owner.getProperties(), users));
         owner.createAgreement(1000, 12, (Tenant) users.get(3), getUnitByUnitIdAndPropertyId(201, 4, 1, owner.getProperties(), users));
