@@ -14,6 +14,9 @@ public class MaintenanceRequest {
     }
 
     // Getters and setters
+    public String getDescription(){
+        return this.description;
+    }
 
     public MaintenanceStaff getAssignedTo() {
         return this.assignedTo;

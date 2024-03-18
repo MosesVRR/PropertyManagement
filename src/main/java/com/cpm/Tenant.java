@@ -1,10 +1,12 @@
 package com.cpm;
 
 import java.util.ArrayList;
+import java.util.List;
 
 class Tenant extends User {
     private TenantAgreement currentAgreement;
     private ArrayList<RentReceipt> rentReceipts;
+    private List<MaintenanceRequest> maintenanceRequests;
 
     public Tenant(String username, String password, String name) {
         super(username, password, name);
@@ -26,5 +28,27 @@ class Tenant extends User {
     public RentReceipt addRentReceipt(RentReceipt rentReceipt) {
         this.rentReceipts.add(rentReceipt);
         return rentReceipt;
+    }
+
+    // Method to validate OCL 26
+    public boolean canGenerateMaintenanceRequest(String description) {
+        // Check if any existing maintenance request has the same description
+        for (MaintenanceRequest request : maintenanceRequests) {
+            if (request.getDescription().equals(description)) {
+                return false; // Description already exists, can't generate new request
+            }
+        }
+        return true; // Description doesn't exist, can generate new request
+    }
+    
+    // Method to generate a new maintenance request
+    public void generateMaintenanceRequest(String requestID, String description) {
+        if (canGenerateMaintenanceRequest(description)) {
+            MaintenanceRequest newRequest = new MaintenanceRequest(requestID, description);
+            maintenanceRequests.add(newRequest);
+            // Other necessary operations (e.g., adding to database, notifying staff, etc.)
+        } else {
+            System.out.println("Cannot generate maintenance request with duplicate description.");
+        }
     }
 }
