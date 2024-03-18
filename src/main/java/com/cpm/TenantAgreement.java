@@ -66,4 +66,23 @@ public class TenantAgreement {
     public void setSignedOn(Date signedOn) {
         this.signedOn = signedOn;
     }
+
+    // Method to validate the OCL 29 constraint
+    public boolean validateTenantAgreement() {
+        // Check if tenant, unit, and signedOn date are not null
+        if (this.tenant == null || this.unit == null || this.signedOn == null) {
+            System.out.println("The tenant agreement is invalid.");
+            return false;
+        }
+        
+        // Check if the tenant is associated with the property
+        if (!this.unit.getTenant().equals(tenant)) {
+            System.out.println("The tenant agreement is invalid.");
+            return false;
+        }
+
+        // All conditions passed, so the constraint is satisfied
+        System.out.println("The tenant agreement is valid.");
+        return true;
+    }
 }
