@@ -38,7 +38,7 @@ class Owner extends User {
     }
 
     public void createAgreement(int amount, int duration, Tenant tenant, Unit unit) {
-        TenantAgreement tenantAgreement = new TenantAgreement(amount, duration, tenant, this, unit);
+        TenantAgreement tenantAgreement = new TenantAgreement(amount, duration, this, tenant, unit);
         this.tenantAgreements.add(tenantAgreement);
         tenant.setCurrentAgreement(tenantAgreement);
     }
@@ -57,7 +57,19 @@ class Owner extends User {
     // Method to validate the OCL 28 constraint
     public boolean validateTenantAgreements() {
         // Check if the number of tenant agreements equals the number of tenants
+        System.out.println();
         return tenantAgreements.size() == tenants.size();
     }
 
+    // Method to validate the OCL 27 constraint
+    public boolean validateRentReceipts() {
+        for (TenantAgreement ta : tenantAgreements) {
+            if (ta.getTenant().getRentReceipts().size() > ta.getDuration()) {
+                System.out.println("Invalid number of rent receipts owned.");
+                return false; // Number of rent receipts exceeds duration
+            }
+        }
+        System.out.println("Valid number of rent receipts owned.");
+        return true; // All agreements satisfy the constraint
+    }
 }

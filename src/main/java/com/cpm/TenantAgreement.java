@@ -5,11 +5,12 @@ import java.util.Date;
 public class TenantAgreement {
     private static int idCounter = 0;
     private int id, amount, duration;
-    private User owner, tenant;
+    private Owner owner;
+    private Tenant tenant;
     private Unit unit;
     private Date signedOn;
 
-    public TenantAgreement(int amount, int duration, User owner, User tenant, Unit unit) {
+    public TenantAgreement(int amount, int duration, Owner owner, Tenant tenant, Unit unit) {
         this.id = ++idCounter;
         this.amount = amount;
         this.duration = duration;
@@ -47,15 +48,15 @@ public class TenantAgreement {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 
-    public User getTenant() {
+    public Tenant getTenant() {
         return tenant;
     }
 
-    public void setTenant(User tenant) {
+    public void setTenant(Tenant tenant) {
         this.tenant = tenant;
     }
 
@@ -85,4 +86,6 @@ public class TenantAgreement {
         System.out.println("The tenant agreement is valid.");
         return true;
     }
+
+    
 }
