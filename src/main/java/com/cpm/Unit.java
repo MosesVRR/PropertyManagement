@@ -1,11 +1,16 @@
 package com.cpm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Unit {
     private static int idCounter = 0;
     private int id, unitNo, floorNo;
     private UnitType type;
     private Tenant tenant;
-//    private parkingSpot;
+
+    private List<ParkingSpot> parkingSpots = new ArrayList<ParkingSpot>();
+    
 
     Unit(int unitNo, int floorNo, UnitType type) {
         this.id = ++idCounter;
@@ -60,6 +65,10 @@ public class Unit {
 
     public void setTenant(Tenant tenant) {
         this.tenant = tenant;
+    }
+
+    public List<ParkingSpot> getParkingSpots() {
+        return parkingSpots;
     }
 
 

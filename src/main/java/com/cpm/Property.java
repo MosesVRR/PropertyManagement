@@ -10,6 +10,8 @@ public class Property {
     private String address;
     private User ownedBy;
 
+    private List<ParkingSpot> parkingSpots = new ArrayList<ParkingSpot>();
+
     private List<Unit> units = new ArrayList<Unit>();
 
     public List<ParkingSpot> getParkingSpots() {
@@ -20,7 +22,7 @@ public class Property {
         this.parkingSpots = parkingSpots;
     }
 
-    private List<ParkingSpot> parkingSpots = new ArrayList<ParkingSpot>();
+    
 
     public Property(String name, String address, User ownedBy) {
         this.id = ++idCounter;
@@ -83,6 +85,20 @@ public class Property {
 
     public void setOwnedBy(User ownedBy) {
         this.ownedBy = ownedBy;
+    }
+
+    // Validation method for OCL 23
+    private void validateTotalParkingSpots() {
+        int totalParkingSpots = parkingSpots.size();
+        int sumOfParkingSpotsInUnits = 0;
+        for (Unit unit : units) {
+            sumOfParkingSpotsInUnits += unit.getParkingSpots().size();
+        }
+
+        if (totalParkingSpots != sumOfParkingSpotsInUnits) {
+            System.out.println("Validation error: Total number of parking spots must be equal to the sum of parking spots associated with units.");
+            // Handle error or throw exception as needed
+        }
     }
 
 }
