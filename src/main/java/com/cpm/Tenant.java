@@ -7,12 +7,15 @@ class Tenant extends User {
     private ArrayList<RentReceipt> rentReceipts;
     private List<MaintenanceRequest> maintenanceRequests;
 
+    private ExpenseTracker expenseTracker;
+
 
 
     public Tenant(String username, String password, String name) {
         super(username, password, name);
         this.rentReceipts = new ArrayList<RentReceipt>();
         this.maintenanceRequests = new ArrayList<>();
+        this.expenseTracker = new ExpenseTracker();
     }
 
     public TenantAgreement getCurrentAgreement() {

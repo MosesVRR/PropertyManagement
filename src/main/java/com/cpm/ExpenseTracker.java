@@ -1,14 +1,19 @@
 package com.cpm;
-
+import java.util.ArrayList;
+import java.util.List;
 public class ExpenseTracker {
     private int expenseId;
-    private String description;
-    private int amount;
+    private List<String> descriptions;
+    private List<Integer> amounts;
+
+    private List<ExpenseTracker> expenses;
 
     public ExpenseTracker() {
         // Default constructor
+        this.expenses = new ArrayList<>();
+        this.descriptions = new ArrayList<>();
+        this.amounts = new ArrayList<>();
     }
-
     // Getters and setters
     public int getExpenseId() {
         return this.expenseId;
@@ -18,44 +23,62 @@ public class ExpenseTracker {
         this.expenseId = expenseId;
     }
 
-    public String getDescription() {
-        return this.description;
+    public List<String> getDescriptions() {
+        return descriptions;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptions(List<String> descriptions) {
+        this.descriptions = descriptions;
     }
 
-    public int getAmount() {
-        return this.amount;
+    public List<Integer> getAmounts() {
+        return amounts;
     }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setAmounts(List<Integer> amounts) {
+        this.amounts = amounts;
     }
 
     // Method to add an expense
+    // Method to add an expense
     public void addExpense(int amount, String description) {
-        // Here you can implement the logic to add the expense
-        // For demonstration, let's just set the amount and description
-        this.amount = amount;
-        this.description = description;
+        descriptions.add(description);
+        amounts.add(amount);
         System.out.println("Expense added successfully.");
     }
 
+
     // Method to remove an expense
-    public void removeExpense(int expenseId) {
-        // Here you can implement the logic to remove the expense
-        // For demonstration, let's just reset the amount and description
-        this.amount = 0;
-        this.description = "";
-        System.out.println("Expense removed successfully.");
+    public void removeExpense(int index) {
+        if (index >= 0 && index < descriptions.size()) {
+            descriptions.remove(index);
+            amounts.remove(index);
+            System.out.println("Expense removed successfully.");
+        } else {
+            System.out.println("Invalid expense index.");
+        }
     }
 
     // Method to calculate total expenses
     public int total() {
-        // Here you can implement the logic to calculate the total expenses
-        // For demonstration, let's just return the current amount
-        return amount;
+        int totalAmount = 0;
+        for (int amount : amounts) {
+            totalAmount += amount;
+        }
+        return totalAmount;
+    }
+
+    public List<String> getAllExpenseDetails() {
+        List<String> allExpenseDetails = new ArrayList<>();
+        for (int i = 0; i < descriptions.size(); i++) {
+            String detail = "Description: " + descriptions.get(i) + ", Amount: $" + amounts.get(i);
+            allExpenseDetails.add(detail);
+        }
+        return allExpenseDetails;
+    }
+    public List<ExpenseTracker> getExpenses() {
+        return expenses;
+    }
+    public void setExpenses(List<ExpenseTracker> expenses) {
+        this.expenses = expenses;
     }
 }

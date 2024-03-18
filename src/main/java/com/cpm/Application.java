@@ -249,6 +249,8 @@ public class Application {
         System.out.println("2. Pay Rent Receipt");
         System.out.println("3. Get All Receipts");
         System.out.println("4. Create Maintenance Request");
+        System.out.println("5. Add an Expense");
+        System.out.println("6. View Expenses");
         System.out.println("9. Logout");
 
         System.out.println("Command > ");
@@ -256,6 +258,8 @@ public class Application {
         int choice = scanner.nextInt();
         Tenant tenant = (Tenant) activeUser;
         TenantAgreement tenantAgreement = tenant.getCurrentAgreement();
+        // Create an ExpenseTracker object
+        ExpenseTracker expenseTracker = new ExpenseTracker();
         switch (choice) {
             case 1:
                 System.out.println("| Id: " + tenantAgreement.getId() + " | " + "Duration in Months: "+tenantAgreement.getDuration() + " |" + "Rent Amount Each Month: "+ tenantAgreement.getAmount());
@@ -288,6 +292,29 @@ public class Application {
 
                 System.out.println("Maintenance Request created successfully.");
                 break;
+
+
+            case 5:
+                System.out.println("Enter Expense Description: ");
+                scanner.nextLine(); // Consume the newline character
+                String expenseDescription = scanner.nextLine();
+                System.out.println("Enter Expense Amount: ");
+                int expenseAmount = scanner.nextInt();
+
+                // Add the expense using the addExpense() method
+                expenseTracker.addExpense(expenseAmount, expenseDescription);
+                break;
+
+            case 6:
+                System.out.println("Expenses:");
+                List<String> expenseDetails = expenseTracker.getAllExpenseDetails();
+
+                for (String detail : expenseDetails) {
+                    System.out.println(detail);
+                }
+
+                break;
+
 
             case 9:
                 this.activeUser = null;
