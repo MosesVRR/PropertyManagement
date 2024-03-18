@@ -250,12 +250,19 @@ public class Application {
         TenantAgreement tenantAgreement = tenant.getCurrentAgreement();
         switch (choice) {
             case 1:
-                System.out.println("| Id: " + tenantAgreement.getId() + " | " + tenantAgreement.getDuration() + " |" + tenantAgreement.getAmount());
+                System.out.println("| Id: " + tenantAgreement.getId() + " | " + "Duration in Months: "+tenantAgreement.getDuration() + " |" + "Rent Amount Each Month: "+ tenantAgreement.getAmount());
                 break;
             case 2:
-                RentReceipt rentReceipt = new RentReceipt(tenant, tenantAgreement);
-                tenant.addRentReceipt(rentReceipt);
-                System.out.print("All Receipts Paid");
+                // Check if the number of issued receipts is less than the duration of the agreement
+                if (tenant.getRentReceipts().size() < tenantAgreement.getDuration()) {
+                    RentReceipt rentReceipt = new RentReceipt(tenant, tenantAgreement);
+                    tenant.addRentReceipt(rentReceipt);
+                    System.out.print(tenantAgreement.getDuration() +" Rent receipts issued for the duration of " + tenantAgreement.getDuration() + " months successfully.");
+                    System.out.println();
+
+                } else {
+                    System.out.println("You have already been issued rent receipts for all months in the agreement duration.");
+                }
                 break;
             case 3:
                 for (RentReceipt receipt : tenant.getRentReceipts()) {
