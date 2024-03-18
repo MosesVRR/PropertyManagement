@@ -298,6 +298,7 @@ public class Application {
         System.out.println("3. Empty my vehicle");
         System.out.println("4. Get all Vehicle receipts");
         System.out.println("5. Show information of vehicles I own");
+        System.out.println("6. Reserve Parking Spot");
         System.out.println("9. Logout");
         System.out.print("Command > ");
 
@@ -378,6 +379,11 @@ public class Application {
                     visitor.getVehicle().getParkingSpot().setStatus(SlotStatus.AVAILABLE);
                     visitor.addParkingReceipt(receipt);
                 }
+                break;
+
+
+            case 6:
+                System.out.println("As a visitor, you don't have authorisation to reserve a Parking Spot!");
                 break;
 
             case 9:
