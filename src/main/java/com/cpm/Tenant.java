@@ -35,20 +35,24 @@ class Tenant extends User {
         List<ParkingSpot> parkingSpots = unit.getParkingSpots();
         for (ParkingSpot spot : parkingSpots) {
             if (spot.getParkingDuration() != -1) {
+                System.out.println("Tenant cannot park indefinitely.");
                 return false; // Tenant cannot park indefinitely
             }
         }
+        System.out.println("Tenant can park indefinitely.");
         return true; // All parking spots have indefinite parking duration
     }
 
-    // Method to validate OCL 26
+    // Method to validate OCL 25
     public boolean canGenerateMaintenanceRequest(String description) {
         // Check if any existing maintenance request has the same description
         for (MaintenanceRequest request : maintenanceRequests) {
             if (request.getDescription().equals(description)) {
+                System.out.println("Cannot generate request with give description. It already exists.");
                 return false; // Description already exists, can't generate new request
             }
         }
+        System.out.println("Added description.");
         return true; // Description doesn't exist, can generate new request
     }
     

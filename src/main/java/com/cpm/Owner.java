@@ -54,14 +54,14 @@ class Owner extends User {
         this.tenantAgreements = tenantAgreements;
     }
 
-    // Method to validate the OCL 28 constraint
+    // Method to validate the OCL 27 constraint
     public boolean validateTenantAgreements() {
         // Check if the number of tenant agreements equals the number of tenants
         System.out.println();
         return tenantAgreements.size() == tenants.size();
     }
 
-    // Method to validate the OCL 27 constraint
+    // Method to validate the OCL 26 constraint
     public boolean validateRentReceipts() {
         for (TenantAgreement ta : tenantAgreements) {
             if (ta.getTenant().getRentReceipts().size() > ta.getDuration()) {

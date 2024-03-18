@@ -11,9 +11,10 @@ class MaintenanceStaff extends User {
         // Implementation
     }
 
-    //Method to validate OCL 25 and OCL 24
+    //Method to validate OCL 24 and (old) OCL 23
     public void changeMaintenanceStatus(MaintenanceStatus newStatus, MaintenanceRequest request) {
-        if (newStatus == MaintenanceStatus.COMPLETED && (request.getDescription() == null || request.getDescription().isEmpty())) {
+        if (newStatus == MaintenanceStatus.COMPLETED && (request.getDescription() == null 
+            || request.getDescription().isEmpty())) {
             System.out.println("Cannot mark request as completed without a description.");
         } else if(newStatus == MaintenanceStatus.PENDING && request.getAssignedTo() == null){
             System.out.println("Cannot set status to PENDING without assigning to a staff member.");

@@ -34,7 +34,7 @@ public class MaintenanceRequest {
         this.status = status;
     }
 
-    // Method to check the OCL 30 constraint
+    // Method to check the OCL 29 constraint
     public boolean isAssignedAndPending() {
         System.out.println(this.assignedTo + "has been assigned to a request.");
         return this.assignedTo != null && this.status == MaintenanceStatus.PENDING;

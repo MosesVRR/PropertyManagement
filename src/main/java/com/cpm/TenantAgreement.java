@@ -76,14 +76,16 @@ public class TenantAgreement {
                 boolean hasShorterAgreement = tenantAgreements.stream()
                         .anyMatch(newAgreement -> newAgreement.getDuration() <= agreement.getDuration());
                 if (!hasShorterAgreement) {
+                    System.out.println("Lease cannot be tranferred to new tenant.");
                     return false; // No new agreement with shorter or equal duration found
                 }
             }
         }
+        System.out.println("Lease tranferred to new tenant.");
         return true; // All agreements with remaining duration have a corresponding new agreement
     }
 
-    // Method to validate the OCL 29 constraint
+    // Method to validate the OCL 28 constraint [updated]
     public boolean validateTenantAgreement() {
         // Check if tenant, unit, and signedOn date are not null
         if (this.tenant == null || this.unit == null || this.signedOn == null) {

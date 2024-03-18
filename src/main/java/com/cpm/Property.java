@@ -96,7 +96,8 @@ public class Property {
         }
 
         if (totalParkingSpots != sumOfParkingSpotsInUnits) {
-            System.out.println("Validation error: Total number of parking spots must be equal to the sum of parking spots associated with units.");
+            System.out.println("Validation error: Total number of parking spots must be"+ 
+            "equal to the sum of parking spots associated with units.");
             // Handle error or throw exception as needed
         }
     }
