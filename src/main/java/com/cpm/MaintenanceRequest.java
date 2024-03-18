@@ -36,4 +36,7 @@ public class MaintenanceRequest {
         System.out.println(this.assignedTo + "has been assigned to a request.");
         return this.assignedTo != null && this.status == MaintenanceStatus.PENDING;
     }
+    public String getDescription() {
+        return this.description;
+    }
 }

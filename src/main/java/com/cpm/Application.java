@@ -240,6 +240,7 @@ public class Application {
         System.out.println("1. Get My Tenant Agreement");
         System.out.println("2. Pay Rent Receipt");
         System.out.println("3. Get All Receipts");
+        System.out.println("4. Create Maintenance Request");
         System.out.println("9. Logout");
 
         System.out.println("Command > ");
@@ -261,6 +262,18 @@ public class Application {
                     System.out.println("| Id: " + receipt.getId() + " | Tenant" + receipt.getTenant().getName() + " |");
                 }
                 break;
+            case 4:
+                System.out.println("Enter Maintenance Request ID: ");
+                String requestId = scanner.next();
+                System.out.println("Enter Maintenance Request Description: ");
+                scanner.nextLine(); // Consume the newline character
+                String description = scanner.nextLine();
+
+                tenant.createMaintenanceRequest(requestId, description);
+
+                System.out.println("Maintenance Request created successfully.");
+                break;
+
             case 9:
                 this.activeUser = null;
                 break;
