@@ -14,6 +14,8 @@ class ParkingSpot {
     private Unit associateUnit;
     private final Date parkedOn;
 
+    private int parkingDuration;
+
 
     public ParkingSpot(int price, Property property) {
         this.id = ++idCounter;
@@ -89,6 +91,10 @@ class ParkingSpot {
 
     public void setProperty(Property property) {
         this.property = property;
+    }
+
+    public int getParkingDuration() {
+        return parkingDuration;
     }
 
 }

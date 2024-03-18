@@ -30,6 +30,17 @@ class Tenant extends User {
         return rentReceipt;
     }
 
+    // Validation method for OCL 21
+    public boolean validateParkingDuration(Unit unit) {
+        List<ParkingSpot> parkingSpots = unit.getParkingSpots();
+        for (ParkingSpot spot : parkingSpots) {
+            if (spot.getParkingDuration() != -1) {
+                return false; // Tenant cannot park indefinitely
+            }
+        }
+        return true; // All parking spots have indefinite parking duration
+    }
+
     // Method to validate OCL 26
     public boolean canGenerateMaintenanceRequest(String description) {
         // Check if any existing maintenance request has the same description
