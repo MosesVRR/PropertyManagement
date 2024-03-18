@@ -57,7 +57,8 @@ public class Application {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Admin menu");
         System.out.println("1. List all Users");
-        System.out.println("2. List all Properties");
+        System.out.println("2. List all Tenants");
+        System.out.println("3. List all Properties");
         System.out.println("9. Logout");
         System.out.print("Command > ");
         int choice = scanner.nextInt();
@@ -68,6 +69,13 @@ public class Application {
                 }
                 break;
             case 2:
+                for (User user : this.users) {
+                    if (user instanceof Tenant) {
+                        System.out.println("| Id: " + user.getId() + "| User: " + user.getName() + " |");
+                    }
+                }
+                break;
+            case 3:
                 for (Property property : this.properties) {
                     System.out.println("| Id: " + property.getId() + "| name: " + property.getName() + " |");
                 }
