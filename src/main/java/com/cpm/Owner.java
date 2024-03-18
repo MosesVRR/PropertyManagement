@@ -6,6 +6,7 @@ import java.util.List;
 class Owner extends User {
     private List<Property> properties;
     private List<TenantAgreement> tenantAgreements = new ArrayList<TenantAgreement>();
+    private List<Tenant> tenants;
 
     public Owner(String username, String password, String name) {
         super(username, password, name);
@@ -53,5 +54,10 @@ class Owner extends User {
         this.tenantAgreements = tenantAgreements;
     }
 
+    // Method to validate the OCL 28 constraint
+    public boolean validateTenantAgreements() {
+        // Check if the number of tenant agreements equals the number of tenants
+        return tenantAgreements.size() == tenants.size();
+    }
 
 }
