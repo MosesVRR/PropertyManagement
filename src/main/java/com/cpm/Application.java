@@ -99,6 +99,7 @@ public class Application {
                 "4. Create tenant agreement \n" +
                 "5. Show all tenant agreements \n" +
                 "6. Adding parking spots\n" +
+                "7. List All Tenants\n"+
                 "9. Logout");
 
         System.out.print("Command > ");
@@ -232,6 +233,14 @@ public class Application {
                 System.out.println("parking price: ");
                 int price = scanner.nextInt();
                 parkingProperty.addParking(price);
+                break;
+
+            case 7:
+                for (User user : this.users) {
+                    if (user instanceof Tenant) {
+                        System.out.println("| Id: " + user.getId() + "| User: " + user.getName() + " |");
+                    }
+                }
                 break;
             case 9:
                 activeUser = null;
